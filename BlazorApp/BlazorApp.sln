@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstaldoApp.Web", "EstaldoApp.Web\EstaldoApp.Web.csproj", "{E55E77B1-484B-4514-B49C-014733C68D19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstaldoApp.Models", "EstaldoApp.Models\EstaldoApp.Models.csproj", "{2AE8AC62-0F16-430A-AAE8-908AE7547EBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E55E77B1-484B-4514-B49C-014733C68D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E55E77B1-484B-4514-B49C-014733C68D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E55E77B1-484B-4514-B49C-014733C68D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E55E77B1-484B-4514-B49C-014733C68D19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE8AC62-0F16-430A-AAE8-908AE7547EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE8AC62-0F16-430A-AAE8-908AE7547EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE8AC62-0F16-430A-AAE8-908AE7547EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE8AC62-0F16-430A-AAE8-908AE7547EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

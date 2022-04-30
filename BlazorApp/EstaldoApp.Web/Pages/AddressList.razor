@@ -1,0 +1,36 @@
+@page "/"
+@inherits AddressListBase
+
+<h3>Address List</h3>
+<label for='adresse'>Autocomplete af adresse:</label>
+<div class='autocomplete-container'>
+<input type="text" id="adresse">
+</div>
+@if (Adresser == null)
+{
+  <div class="loading-spinner"></div>
+}
+else
+{
+  <table class="table  table-striped table-sm">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Address</th>
+      <th scope="col">Floor/Door</th>
+      <th scope="col">Postal Code</th>
+    </tr>
+    </thead>
+    <tbody>
+      @foreach (var adresse in Adresser)
+      {
+        <tr>
+          <th scope="row">1</th>
+          <td>@adresse.adresse.vejnavn @adresse.adresse.husnr</td>
+          <td>@adresse.adresse.etage , @adresse.adresse.dør</td>
+          <td>@adresse.adresse.postnr</td>
+        </tr>
+      }
+    </tbody>
+    </table>
+  }
