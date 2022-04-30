@@ -10,4 +10,9 @@
       <ProjectReference Include="..\EstaldoApp.Models\EstaldoApp.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="NpmJS\package-lock.json" />
+      <_ContentIncludedByDefault Remove="NpmJS\package.json" />
+    </ItemGroup>
+
 </Project>

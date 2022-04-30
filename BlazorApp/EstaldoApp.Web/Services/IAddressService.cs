@@ -5,5 +5,5 @@ namespace EstaldoApp.Web.Services;
 public interface IAddressService
 {
     //Returns a list of addresses
-    Task<IEnumerable<Root>> GetAddresses();
+    Task<IEnumerable<Root>> GetAddressService(string input);
 }
