@@ -8,7 +8,7 @@ public class AddressListBase : ComponentBase
 {
     [Inject] 
     public IAddressService AddressService { get; set; }
-    public IEnumerable<Root> Adresser { get; set; }
+    public IEnumerable<JsonRootObject> Adresser { get; set; }
 
     protected string inputVal { get; set; }
     protected override async Task OnInitializedAsync()
@@ -17,9 +17,13 @@ public class AddressListBase : ComponentBase
         Console.WriteLine("ADDRESS:" + Adresser.Count());
     }
 
-    protected async Task<IEnumerable<Root>> GetAdresses(string input)
+    protected async Task<IEnumerable<JsonRootObject>> GetAdresses(string input)
     {
         return await AddressService.GetAddressService(input);
     }
 
+    public IEnumerable<JsonRootObject> SortAdressesByStreetname(string adresse)
+    {
+        //return Adresser.Where( (adresse)=> adresse.)
+    }
 }

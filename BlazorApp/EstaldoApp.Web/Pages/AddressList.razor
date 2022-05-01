@@ -2,36 +2,47 @@
 @inherits AddressListBase
 
 <h3>Address List</h3>
+
 <label for='adresse'>Autocomplete af adresse:</label>
 <div class='autocomplete-container'>
-  <input type="text" id="adresse" @bind="inputVal"
+  <input type="text" list="adresser" id="adresse" @bind="inputVal"
          @oninput="@(async (e) => { inputVal = (String) e.Value; Adresser = await GetAdresses(inputVal);})">
 </div>
-
-
-@if (Adresser == null)
+@if (Adresser != null)
 {
-  <div class="loading-spinner"></div>
+    <datalist id="adresser">
+        @foreach (var adresse in Adresser)
+        {
+            Console.WriteLine(adresse.tekst);
+            <option value="@adresse.tekst" onclick=""></option>
+        }
+    </datalist>
 }
-else
-{
-  <table class="table  table-striped table-sm">
-    <thead>
-    <tr>
-      <th scope="col">Address</th>
-      <th scope="col">Floor/Door</th>
-      <th scope="col">Postal Code</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var adresse in Adresser)
-    {
-      <tr>
-        <td>@adresse.adresse.vejnavn @adresse.adresse.husnr</td>
-        <td>@adresse.adresse.etage , @adresse.adresse.dør</td>
-        <td>@adresse.adresse.postnr</td>
-      </tr>
-    }
-    </tbody>
-    </table>
-  }
+
+
+@* @if (Adresser == null) *@
+@* { *@
+@*   <div class="loading-spinner"></div> *@
+@* } *@
+@* else *@
+@* { *@
+@*   <table class="table  table-striped table-sm"> *@
+@*     <thead> *@
+@*     <tr> *@
+@*       <th scope="col">Address</th> *@
+@*       <th scope="col">Floor/Door</th> *@
+@*       <th scope="col">Postal Code</th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*     @foreach (var adresse in Adresser) *@
+@*     { *@
+@*       <tr> *@
+@*         <td>@adresse.adresse.vejnavn @adresse.adresse.husnr</td> *@
+@*         <td>@adresse.adresse.etage , @adresse.adresse.dør</td> *@
+@*         <td>@adresse.adresse.postnr</td> *@
+@*       </tr> *@
+@*     } *@
+@*     </tbody> *@
+@*     </table> *@
+@*   } *@

@@ -11,8 +11,9 @@ public class AddressService : IAddressService
     {
         _httpClient = httpClient;
     }
-    public async Task<IEnumerable<Root>> GetAddressService(string input)
+    public async Task<IEnumerable<JsonRootObject>> GetAddressService(string input)
     {
-        return await _httpClient.GetFromJsonAsync<Root[]>($"adresser/autocomplete?q={input}&fuzzy=");
+        //Generation of query from user input
+        return await _httpClient.GetFromJsonAsync<JsonRootObject[]>($"adresser/autocomplete?q={input}&fuzzy=");
     }
 }
