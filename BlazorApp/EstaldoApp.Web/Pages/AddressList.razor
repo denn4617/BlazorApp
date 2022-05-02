@@ -1,48 +1,95 @@
 @page "/"
+@using EstaldoApp.Models
 @inherits AddressListBase
 
 <h3>Address List</h3>
-
+@* SEARCH FIELD FOR ADRESSES *@
 <label for='adresse'>Autocomplete af adresse:</label>
 <div class='autocomplete-container'>
-  <input type="text" list="adresser" id="adresse" @bind="inputVal"
-         @oninput="@(async (e) => { inputVal = (String) e.Value; Adresser = await GetAdresses(inputVal);})">
+  <input type="text" list="adresser" id="adresse-input" @bind="inputVal"
+         @oninput="@(async (e) => { inputVal = (String) e.Value; Adresser = await GetAdresses(inputVal, side.ToString()); DisplayDiv = true;})">
 </div>
-@if (Adresser != null)
+
+@* DROPDOWN FOR SEARCH FIELD *@
+@if (Adresser != null && DisplayDiv)
 {
-    <datalist id="adresser">
-        @foreach (var adresse in Adresser)
-        {
-            Console.WriteLine(adresse.tekst);
-            <option value="@adresse.tekst" onclick=""></option>
-        }
-    </datalist>
+  <div id="adresseDropdown">
+    @foreach (var rootAdresse in Adresser)
+    {
+      <div class="adresse-dropdown-item" @onclick="@(async () => { ClickOnAddress(rootAdresse);})">
+        @rootAdresse.tekst
+      </div>
+    }
+  </div>
 }
 
+@* SELECTED ADDRESS INFORMATION *@
+<div>
+  <p></p>
+</div>
 
-@* @if (Adresser == null) *@
-@* { *@
-@*   <div class="loading-spinner"></div> *@
-@* } *@
-@* else *@
-@* { *@
-@*   <table class="table  table-striped table-sm"> *@
-@*     <thead> *@
-@*     <tr> *@
-@*       <th scope="col">Address</th> *@
-@*       <th scope="col">Floor/Door</th> *@
-@*       <th scope="col">Postal Code</th> *@
-@*     </tr> *@
-@*     </thead> *@
-@*     <tbody> *@
-@*     @foreach (var adresse in Adresser) *@
-@*     { *@
-@*       <tr> *@
-@*         <td>@adresse.adresse.vejnavn @adresse.adresse.husnr</td> *@
-@*         <td>@adresse.adresse.etage , @adresse.adresse.dør</td> *@
-@*         <td>@adresse.adresse.postnr</td> *@
-@*       </tr> *@
-@*     } *@
-@*     </tbody> *@
-@*     </table> *@
-@*   } *@
+@* ADRESSES ON SAME STREET *@
+@if (SortedAdresser == null)
+{
+  @* <div class="loading-spinner"></div> *@
+}
+else
+{
+  <table class="table  table-striped table-sm">
+    <thead>
+    <tr>
+      <th scope="col">Addresses on same street</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var rootAdresse in SortedAdresser)
+    {
+      <tr>
+        <td>@rootAdresse.tekst</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+  @if (side != 1)
+  {
+    <button id="previous" onclick="@GoToPreviousPage">Previous</button>
+  }
+  @if (LengthOfAddressList > side * 5)
+  {
+    <button id="next" onclick="@GoToNextPage">Next</button>
+  }
+  
+  
+}
+@code{
+  private int LengthOfAddressList;
+  private IEnumerable<JsonRootObject> AmountOfAddresses;
+  private bool DisplayDiv = false;
+  private JsonRootObject SelectedAddress;
+
+  private async void ClickOnAddress(JsonRootObject rootAdresse)
+  {
+    side = 1;
+    Console.WriteLine(side + "ONCLICK#####");
+    AmountOfAddresses = await GetEveryAdress(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode);
+    LengthOfAddressList = AmountOfAddresses.Count();
+    Console.WriteLine(LengthOfAddressList + "!!!!!!!!!!!!!!!!!!!!!!!");
+    SortedAdresser = await GetSortedAdresses(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode, side.ToString());
+    DisplayDiv = false;
+    SelectedAddress = rootAdresse;
+  }
+
+  private async void GoToPreviousPage()
+  {
+    side--;
+    SortedAdresser = await GetSortedAdresses(SelectedAddress.adresse.vejkode, SelectedAddress.adresse.kommunekode, side.ToString());
+    Console.WriteLine(side + "-------------------");
+  }
+  private async void GoToNextPage()
+  {
+    side++;
+    SortedAdresser = await GetSortedAdresses(SelectedAddress.adresse.vejkode, SelectedAddress.adresse.kommunekode, side.ToString());
+    Console.WriteLine(side + "++++++++++++++++++");
+  }
+  
+}

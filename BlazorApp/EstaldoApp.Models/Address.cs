@@ -79,3 +79,8 @@ public class JsonRootObject
     public Adresse adresse { get; set; }
     public string tekst { get; set; }
 }
+
+public class SortedJsonRootObject
+{
+    
+}
