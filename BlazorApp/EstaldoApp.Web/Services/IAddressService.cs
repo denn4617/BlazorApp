@@ -8,5 +8,5 @@ public interface IAddressService
     Task<IEnumerable<AddressRootObject>> GetAddressesService(string input, string side);
     Task<IEnumerable<AddressRootObject>> GetEveryAddressService(string vejkode, string kommunekode);
     Task<IEnumerable<AddressRootObject>> GetSortedAddressesService(string vejkode, string kommunekode, string side);
-    Task<SelectedAddressRootObject> GetAddressInformationService(string id);
+    Task<IEnumerable<SelectedAddressRootObject>> GetAddressInformationService(string id);
 }

@@ -25,8 +25,8 @@ public class AddressService : IAddressService
         return await _httpClient.GetFromJsonAsync<AddressRootObject[]>($"adresser/autocomplete?vejkode={vejkode}&kommunekode={kommunekode}&side={side}&per_side=5");
     }
 
-    public async Task<SelectedAddressRootObject> GetAddressInformationService(string id)
+    public async Task<IEnumerable<SelectedAddressRootObject>> GetAddressInformationService(string id)
     {
-        return await _httpClient.GetFromJsonAsync<SelectedAddressRootObject>($"https://api.dataforsyningen.dk/adresser?id={id}");
+        return await _httpClient.GetFromJsonAsync<SelectedAddressRootObject[]>($"https://api.dataforsyningen.dk/adresser?id={id}");
     }
 }

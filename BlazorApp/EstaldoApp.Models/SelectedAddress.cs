@@ -48,7 +48,7 @@ namespace EstaldoApp.Models;
     {
         public string id { get; set; }
         public List<double> koordinater { get; set; }
-        public int højde { get; set; }
+        public float højde { get; set; }
         public string nøjagtighed { get; set; }
         public int kilde { get; set; }
         public string tekniskstandard { get; set; }
@@ -147,7 +147,7 @@ namespace EstaldoApp.Models;
     public class Bebyggelser
     {
         public string id { get; set; }
-        public int kode { get; set; }
+        public int? kode { get; set; }
         public string type { get; set; }
         public string navn { get; set; }
         public string href { get; set; }

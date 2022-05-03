@@ -10,7 +10,7 @@ public class AddressListBase : ComponentBase
     public IAddressService AddressService { get; set; }
     public IEnumerable<AddressRootObject> Adresser { get; set; }
     public IEnumerable<AddressRootObject> SortedAdresser { get; set; }
-    public SelectedAddressRootObject SelectedAddressInformation { get; set; }
+    public IEnumerable<SelectedAddressRootObject> SelectedAddressInformation { get; set; } 
     public int side { get; set; } = 1;
     protected string inputVal { get; set; }
     protected override async Task OnInitializedAsync()
@@ -32,10 +32,10 @@ public class AddressListBase : ComponentBase
         return await AddressService.GetSortedAddressesService(vejkode, kommunekode, side);
     }
 
-    protected async Task GetAddressInformation(string id)
+    protected async Task<IEnumerable<SelectedAddressRootObject>> GetAddressInformation(string id)
     {
-        // return await AddressService.GetAddressInformationService(id);
-        SelectedAddressInformation = (await AddressService.GetAddressInformationService(id));
+        return await AddressService.GetAddressInformationService(id);
+        // SelectedAddressInformation = (await AddressService.GetAddressInformationService(id));
         Console.WriteLine("WheepWhoop");
     }
 }

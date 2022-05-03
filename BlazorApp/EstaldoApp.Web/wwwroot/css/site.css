@@ -91,7 +91,8 @@ a, .btn-link {
 
 #adresse-input{
     position: relative;
-    width: 30%;
+    /*width: 30%;*/
+    width: 450px;
 }
 
 .adresse-dropdown-item{
@@ -103,8 +104,12 @@ a, .btn-link {
 #adresseDropdown{
     position: absolute;
     z-index: 10;
-background-color: white;
-    width: 36%;
+    background-color: white;
+    /*width: 25%;*/
+    width: 450px;
+}
+.card{
+    width: 450px;
 }
 
 

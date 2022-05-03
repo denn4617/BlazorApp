@@ -25,23 +25,28 @@
 }
 
 @* SELECTED ADDRESS INFORMATION *@
-<div class="card" style="width: 18rem;">
-  <div class="card-header">
-    @if (SelectedAddressInformation == null)
-    {
-      <div>Text</div>
-    }
-    else
-    {
-      <div>@SelectedAddressInformation.adressebetegnelse</div>
-    }
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
-</div>
+@if (SelectedAddressInformation != null)
+{
+  @foreach (var rootAddress in SelectedAddressInformation)
+  {
+    <div class="card">
+
+      <div class="card-header">
+        <div>@rootAddress.adressebetegnelse</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Politikreds: @rootAddress.adgangsadresse.politikreds.navn</li>
+        <li class="list-group-item">Retskreds: @rootAddress.adgangsadresse.retskreds.navn</li>
+        <li class="list-group-item">Afstemningsområde: @rootAddress.adgangsadresse.afstemningsområde.navn</li>
+      </ul>
+    </div>
+  }
+}
+else
+{
+ <div>No selected address</div> 
+}
+
 
 @* ADRESSES ON SAME STREET *@
 @if (SortedAdresser != null)
@@ -73,7 +78,8 @@
   private IEnumerable<AddressRootObject> AmountOfAddresses;
   private bool DisplayDiv = false;
   private AddressRootObject SelectedAddress;
-
+  
+  
   private async void ClickOnAddress(AddressRootObject rootAdresse)
   {
     side = 1;
@@ -84,7 +90,8 @@
     SortedAdresser = await GetSortedAddresses(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode, side.ToString());
     DisplayDiv = false;
     SelectedAddress = rootAdresse;
-    await GetAddressInformation(rootAdresse.adresse.id);
+    
+    SelectedAddressInformation = await GetAddressInformation(rootAdresse.adresse.id);
   }
 
   private async void GoToPreviousPage()
