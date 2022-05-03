@@ -4,11 +4,12 @@
 
 <h3>Address List</h3>
 @* SEARCH FIELD FOR ADRESSES *@
-<label for='adresse'>Autocomplete af adresse:</label>
+<label for='adresse-input'>Autocomplete af adresse:</label>
 <div class='autocomplete-container'>
-  <input type="text" list="adresser" id="adresse-input" @bind="inputVal"
-         @oninput="@(async (e) => { inputVal = (String) e.Value; Adresser = await GetAdresses(inputVal, side.ToString()); DisplayDiv = true;})">
+  <input type="text" placeholder="Search.." list="adresser" id="adresse-input" @bind="inputVal"
+         @oninput="@(async (e) => { inputVal = (String) e.Value; Adresser = await GetAddresses(inputVal, side.ToString()); DisplayDiv = true;})">
 </div>
+
 
 @* DROPDOWN FOR SEARCH FIELD *@
 @if (Adresser != null && DisplayDiv)
@@ -24,16 +25,26 @@
 }
 
 @* SELECTED ADDRESS INFORMATION *@
-<div>
-  <p></p>
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    @if (SelectedAddressInformation == null)
+    {
+      <div>Text</div>
+    }
+    else
+    {
+      <div>@SelectedAddressInformation.adressebetegnelse</div>
+    }
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
 </div>
 
 @* ADRESSES ON SAME STREET *@
-@if (SortedAdresser == null)
-{
-  @* <div class="loading-spinner"></div> *@
-}
-else
+@if (SortedAdresser != null)
 {
   <table class="table  table-striped table-sm">
     <thead>
@@ -50,46 +61,44 @@ else
     }
     </tbody>
   </table>
-  @if (side != 1)
-  {
-    <button id="previous" onclick="@GoToPreviousPage">Previous</button>
-  }
-  @if (LengthOfAddressList > side * 5)
-  {
-    <button id="next" onclick="@GoToNextPage">Next</button>
-  }
-  
-  
+  <div class="pagination">
+    <a onclick="@GoToPreviousPage">&laquo;</a>
+    <p>@side</p>
+    <a onclick="@GoToNextPage">&raquo;</a>
+  </div>
 }
+
 @code{
   private int LengthOfAddressList;
-  private IEnumerable<JsonRootObject> AmountOfAddresses;
+  private IEnumerable<AddressRootObject> AmountOfAddresses;
   private bool DisplayDiv = false;
-  private JsonRootObject SelectedAddress;
+  private AddressRootObject SelectedAddress;
 
-  private async void ClickOnAddress(JsonRootObject rootAdresse)
+  private async void ClickOnAddress(AddressRootObject rootAdresse)
   {
     side = 1;
     Console.WriteLine(side + "ONCLICK#####");
-    AmountOfAddresses = await GetEveryAdress(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode);
+    AmountOfAddresses = await GetEveryAddress(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode);
     LengthOfAddressList = AmountOfAddresses.Count();
     Console.WriteLine(LengthOfAddressList + "!!!!!!!!!!!!!!!!!!!!!!!");
-    SortedAdresser = await GetSortedAdresses(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode, side.ToString());
+    SortedAdresser = await GetSortedAddresses(rootAdresse.adresse.vejkode, rootAdresse.adresse.kommunekode, side.ToString());
     DisplayDiv = false;
     SelectedAddress = rootAdresse;
+    await GetAddressInformation(rootAdresse.adresse.id);
   }
 
   private async void GoToPreviousPage()
   {
     side--;
-    SortedAdresser = await GetSortedAdresses(SelectedAddress.adresse.vejkode, SelectedAddress.adresse.kommunekode, side.ToString());
+    SortedAdresser = await GetSortedAddresses(SelectedAddress.adresse.vejkode, SelectedAddress.adresse.kommunekode, side.ToString());
     Console.WriteLine(side + "-------------------");
   }
+
   private async void GoToNextPage()
   {
     side++;
-    SortedAdresser = await GetSortedAdresses(SelectedAddress.adresse.vejkode, SelectedAddress.adresse.kommunekode, side.ToString());
+    SortedAdresser = await GetSortedAddresses(SelectedAddress.adresse.vejkode, SelectedAddress.adresse.kommunekode, side.ToString());
     Console.WriteLine(side + "++++++++++++++++++");
   }
-  
+
 }

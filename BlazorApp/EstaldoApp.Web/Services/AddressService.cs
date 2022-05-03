@@ -12,16 +12,21 @@ public class AddressService : IAddressService
         _httpClient = httpClient;
     }
  
-    public async Task<IEnumerable<JsonRootObject>> GetAddressesService(string input, string side)
+    public async Task<IEnumerable<AddressRootObject>> GetAddressesService(string input, string side)
     {
-        return await _httpClient.GetFromJsonAsync<JsonRootObject[]>($"adresser/autocomplete?q={input}&fuzzy=&side={side}&per_side=5");
+        return await _httpClient.GetFromJsonAsync<AddressRootObject[]>($"adresser/autocomplete?q={input}&fuzzy=&side={side}&per_side=5");
     }
-    public async Task<IEnumerable<JsonRootObject>> GetEveryAddressService(string vejkode, string kommunekode)
+    public async Task<IEnumerable<AddressRootObject>> GetEveryAddressService(string vejkode, string kommunekode)
     {
-        return await _httpClient.GetFromJsonAsync<JsonRootObject[]>($"adresser/autocomplete?vejkode={vejkode}&kommunekode={kommunekode}");
+        return await _httpClient.GetFromJsonAsync<AddressRootObject[]>($"adresser/autocomplete?vejkode={vejkode}&kommunekode={kommunekode}");
     }
-    public async Task<IEnumerable<JsonRootObject>> GetSortedAddressesService(string vejkode, string kommunekode, string side)
+    public async Task<IEnumerable<AddressRootObject>> GetSortedAddressesService(string vejkode, string kommunekode, string side)
     {
-        return await _httpClient.GetFromJsonAsync<JsonRootObject[]>($"adresser/autocomplete?vejkode={vejkode}&kommunekode={kommunekode}&side={side}&per_side=5");
+        return await _httpClient.GetFromJsonAsync<AddressRootObject[]>($"adresser/autocomplete?vejkode={vejkode}&kommunekode={kommunekode}&side={side}&per_side=5");
+    }
+
+    public async Task<SelectedAddressRootObject> GetAddressInformationService(string id)
+    {
+        return await _httpClient.GetFromJsonAsync<SelectedAddressRootObject>($"https://api.dataforsyningen.dk/adresser?id={id}");
     }
 }

@@ -90,7 +90,7 @@ a, .btn-link {
 }
 
 #adresse-input{
-    position: absolute;
+    position: relative;
     width: 30%;
 }
 
@@ -101,6 +101,37 @@ a, .btn-link {
     background-color: #6c757d;
 }
 #adresseDropdown{
-    margin-top: 30px;
+    position: absolute;
+    z-index: 10;
+background-color: white;
     width: 36%;
+}
+
+
+
+.card{
+    margin-top: 20px;
+}
+
+/*PAGINATION*/
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: #421B4B;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 25px;
+}
+
+
+.pagination a:hover:not(.active) {background-color: rgb(66, 27, 75, 0.7);}
+
+.pagination p {
+    float: left;
+    padding: 8px 16px;
+    color: #421B4B;
+    font-weight: bold;
 }

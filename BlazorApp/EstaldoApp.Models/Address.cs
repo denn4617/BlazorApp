@@ -67,20 +67,11 @@ public class Adresse
     public double x { get; set; }
     public double y { get; set; }
     public string href { get; set; }
-
-    // public override string ToString()
-    // {
-    //     return vejnavn + husnr + etage + dør + postnr + postnrnavn;
-    // }
+    
 }
 
-public class JsonRootObject
+public class AddressRootObject
 {
     public Adresse adresse { get; set; }
     public string tekst { get; set; }
-}
-
-public class SortedJsonRootObject
-{
-    
 }

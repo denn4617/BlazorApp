@@ -1,5 +1,6 @@
 namespace EstaldoApp.Models;
 // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class Historik
     {
         public DateTime oprettet { get; set; }
@@ -47,7 +48,7 @@ namespace EstaldoApp.Models;
     {
         public string id { get; set; }
         public List<double> koordinater { get; set; }
-        public double højde { get; set; }
+        public int højde { get; set; }
         public string nøjagtighed { get; set; }
         public int kilde { get; set; }
         public string tekniskstandard { get; set; }
@@ -146,7 +147,7 @@ namespace EstaldoApp.Models;
     public class Bebyggelser
     {
         public string id { get; set; }
-        public int? kode { get; set; }
+        public int kode { get; set; }
         public string type { get; set; }
         public string navn { get; set; }
         public string href { get; set; }
@@ -190,7 +191,7 @@ namespace EstaldoApp.Models;
         public bool brofast { get; set; }
     }
 
-    public class Root
+    public class SelectedAddressRootObject
     {
         public string id { get; set; }
         public string kvhx { get; set; }
